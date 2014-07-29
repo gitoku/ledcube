@@ -11,18 +11,18 @@
 fastShiftOut ledcube;
 boolean buffer[72];
 
-extern boolean matrix[8][8][8];
+boolean* matrix;
 
-void ledcube_init();  //初期化
+void init();  //初期化
 void drawingStage();  //一段分描画
-void clearMatrix();  //matrixをすべてLOW
+void clear();  //matrixをすべてLOW
 
 
-void ledcube_init(){
+void init(){
   ledcube.begin(STR_PIN);
   ledcube.dataLink(buffer,72);  //(8+1)*8bit
 
-  clearMatrix();
+  clear();
   for(byte i=0; i<8; i++) {
     drawingStage();
     delay(1);
@@ -32,6 +32,7 @@ void ledcube_init(){
   MsTimer2::set(1, drawingStage);
   MsTimer2::start();
 }  //1byte
+
 
 void drawingStage(){
   static byte stage = 0;
@@ -43,7 +44,7 @@ void drawingStage(){
   //選択した段の発光箇所データ反映[0~63]
   for(byte i=0; i<8; i++){
     for(byte j=0; j<8; j++){
-       buffer[(i*8) + j] = matrix[i][j][stage];
+       buffer[(i*8) + j] = *(matrix + (i*64 + j*8 + stage));
     }
   }
 
@@ -56,11 +57,17 @@ void drawingStage(){
 
 
 //matrixをすべてLOW
-void clearMatrix(){
+void clear(){
   for(int i=0; i<256; i++) *(matrix + i) = 0;
 }
 
-/* 80bytes */
+void cube(boolean* mat){
+  matrix = mat;
+}
+
+void cube(int i,int j,int k,boolean value){
+  *(matrix + (i*64 + j*8 + k) ) = value;
+}
 
 #undef STR_PIN
 
