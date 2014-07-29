@@ -8,17 +8,25 @@
 #define STAGE_ACTIVE LOW
 #define STAGE_DISACTIVE HIGH
 
-fastShiftOut ledcube;
-boolean buffer[72];
 
-boolean* matrix;
+class LEDCUBE {
+public:
+  void begin();
+  void clear();  //matrixをすべてLOW
+  void cube(boolean* mat);
+  void cube(int i,int j,int k,boolean value);
 
-void init();  //初期化
-void drawingStage();  //一段分描画
-void clear();  //matrixをすべてLOW
+private:
+  void drawingStage();
+  fastShiftOut ledcube;
+  boolean buffer[72];
+  boolean* matrix;
+};
 
 
-void init(){
+
+
+void LEDCUBE::begin(){
   ledcube.begin(STR_PIN);
   ledcube.dataLink(buffer,72);  //(8+1)*8bit
 
@@ -29,12 +37,12 @@ void init(){
   }
   Serial.begin(9600);
 
-  MsTimer2::set(1, drawingStage);
+  MsTimer2::set(1,drawingStage);
   MsTimer2::start();
-}  //1byte
+}
 
 
-void drawingStage(){
+void LEDCUBE::drawingStage(){
   static byte stage = 0;
 
   //発光させる段の選択(一段だけアクティブに)[64~71]
@@ -57,15 +65,15 @@ void drawingStage(){
 
 
 //matrixをすべてLOW
-void clear(){
+void LEDCUBE::clear(){
   for(int i=0; i<256; i++) *(matrix + i) = 0;
 }
 
-void cube(boolean* mat){
+void LEDCUBE::cube(boolean* mat){
   matrix = mat;
 }
 
-void cube(int i,int j,int k,boolean value){
+void LEDCUBE::cube(int i,int j,int k,boolean value){
   *(matrix + (i*64 + j*8 + k) ) = value;
 }
 
