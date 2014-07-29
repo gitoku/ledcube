@@ -13,9 +13,9 @@
 namespace LEDCUBE {
   void begin();
   void clear();  //matrixをすべてLOW
-  void cube(boolean* mat);
-  void cube(boolean mat[8][8][8]);
-  void cube(int i,int j,int k,boolean value);
+  void update(boolean* mat);
+  void update(boolean mat[8][8][8]);
+  void update(int i,int j,int k,boolean value);
   void on(int i,int j,int k);
   void off(int i,int j,int k);
   void drawingStage();
@@ -71,15 +71,15 @@ void LEDCUBE::clear(){
   for(int i=0; i<256; i++) *(matrix + i) = 0;
 }
 
-void LEDCUBE::cube(boolean* mat){
+void LEDCUBE::update(boolean* mat){
   matrix = mat;
 }
 
-void LEDCUBE::cube(boolean mat[8][8][8]){
+void LEDCUBE::update(boolean mat[8][8][8]){
   // matrix = mat;
 }
 
-void LEDCUBE::cube(int i,int j,int k,boolean value){
+void LEDCUBE::update(int i,int j,int k,boolean value){
   *(matrix + (i*64 + j*8 + k) ) = value;
 }
 

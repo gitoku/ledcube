@@ -33,9 +33,9 @@ void blink2(){
 
 	//1つだけ点滅
 	m[0][0][0]=1;
-	LEDCUBE::cube(m);	//on
+	LEDCUBE::update(m);	//on
 	delay(500);
 	m[0][0][0]=0;
-	LEDCUBE::cube(m);	//off
+	LEDCUBE::update(m);	//off
 	delay(500);
 }
