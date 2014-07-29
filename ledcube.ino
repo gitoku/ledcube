@@ -6,7 +6,6 @@ boolean matrix[8][8][8];
 
 void setup(){
 	ledcube_init();
-	Serial.begin(9600);
 }
 
 

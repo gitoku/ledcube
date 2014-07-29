@@ -27,6 +27,7 @@ void ledcube_init(){
     drawingStage();
     delay(1);
   }
+  Serial.begin(9600);
 
   MsTimer2::set(1, drawingStage);
   MsTimer2::start();
@@ -50,15 +51,14 @@ void drawingStage(){
   ledcube.send();
 
   //次回の発光段の指定
-  stage++;
-  if(stage>7) stage = 0;
-}  //2bytes
+  stage = (++stage) % 8;
+}
 
 
 //matrixをすべてLOW
 void clearMatrix(){
   for(int i=0; i<256; i++) *(matrix + i) = 0;
-}  //3bytes
+}
 
 /* 80bytes */
 
