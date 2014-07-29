@@ -1,14 +1,16 @@
-#include "MsTimer2.h"
-#include <avr/pgmspace.h>
 #include "ledcube.h"
 
 
 void setup(){
+	LEDCUBE::begin();
 }
 
 
 void loop(){
-	delay(100);
+	LEDCUBE::on(0,0,0);
+	delay(500);
+	LEDCUBE::off(0,0,0);
+	delay(500);
 }
 
 

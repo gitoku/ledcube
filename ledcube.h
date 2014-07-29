@@ -1,6 +1,7 @@
 #ifndef ledcube_h
 #define ledcube_h
 
+#include "MsTimer2.h"
 #include "fastShiftOut.h"
 
 #define STR_PIN 10
@@ -9,18 +10,18 @@
 #define STAGE_DISACTIVE HIGH
 
 
-class LEDCUBE {
-public:
+namespace LEDCUBE {
   void begin();
   void clear();  //matrixをすべてLOW
   void cube(boolean* mat);
   void cube(int i,int j,int k,boolean value);
-
-private:
+  void on(int i,int j,int k);
+  void off(int i,int j,int k);
   void drawingStage();
-  fastShiftOut ledcube;
+
   boolean buffer[72];
   boolean* matrix;
+  fastShiftOut ledcube;
 };
 
 
@@ -75,6 +76,14 @@ void LEDCUBE::cube(boolean* mat){
 
 void LEDCUBE::cube(int i,int j,int k,boolean value){
   *(matrix + (i*64 + j*8 + k) ) = value;
+}
+
+void LEDCUBE::on(int i,int j,int k){
+  *(matrix + (i*64 + j*8 + k) ) = HIGH;
+}
+
+void LEDCUBE::off(int i,int j,int k){
+  *(matrix + (i*64 + j*8 + k) ) = LOW;
 }
 
 #undef STR_PIN
