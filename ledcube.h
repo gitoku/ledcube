@@ -3,6 +3,7 @@
 
 #include "MsTimer2.h"
 #include "fastShiftOut.h"
+#include "cube.h"
 
 #define STR_PIN 10
 
@@ -13,15 +14,15 @@
 namespace LEDCUBE {
   void begin();
   void clear();  //matrixをすべてLOW
-  void update(boolean* mat);
   void update(boolean mat[8][8][8]);
-  void update(int i,int j,int k,boolean value);
-  void on(int i,int j,int k);
-  void off(int i,int j,int k);
+  void update(Cube mat);
+  void update(int x,int y,int z,boolean value);
+  void on(int x,int y,int z);
+  void off(int x,int y,int z);
   void drawingStage();
 
   boolean buffer[72];
-  boolean* matrix;
+  boolean matrix[8][8][8];
   fastShiftOut ledcube;
 };
 
@@ -54,7 +55,7 @@ void LEDCUBE::drawingStage(){
   //選択した段の発光箇所データ反映[0~63]
   for(byte i=0; i<8; i++){
     for(byte j=0; j<8; j++){
-       buffer[(i*8) + j] = *(matrix + (i*64 + j*8 + stage));
+       buffer[(i*8) + j] = matrix[i][j][stage];
     }
   }
 
@@ -68,27 +69,35 @@ void LEDCUBE::drawingStage(){
 
 //matrixをすべてLOW
 void LEDCUBE::clear(){
-  for(int i=0; i<256; i++) *(matrix + i) = 0;
-}
-
-void LEDCUBE::update(boolean* mat){
-  matrix = mat;
+  for(int x=0;x<8;x++){
+    for(int y=0;y<8;y++){
+      for(int z=0;z<8;z++) matrix[x][y][z] = 0;
+    }
+  }
 }
 
 void LEDCUBE::update(boolean mat[8][8][8]){
-  // matrix = mat;
+  for(int x=0;x<8;x++){
+    for(int y=0;y<8;y++){
+      for(int z=0;z<8;z++) matrix[x][y][z] = mat[x][y][z];
+    }
+  }
 }
 
-void LEDCUBE::update(int i,int j,int k,boolean value){
-  *(matrix + (i*64 + j*8 + k) ) = value;
+void LEDCUBE::update(Cube mat){
+  update(mat.matrix);
 }
 
-void LEDCUBE::on(int i,int j,int k){
-  *(matrix + (i*64 + j*8 + k) ) = HIGH;
+void LEDCUBE::update(int x,int y,int z,boolean value){
+  matrix[x][y][z]= value;
 }
 
-void LEDCUBE::off(int i,int j,int k){
-  *(matrix + (i*64 + j*8 + k) ) = LOW;
+void LEDCUBE::on(int x,int y,int z){
+  matrix[x][y][z]= HIGH;
+}
+
+void LEDCUBE::off(int x,int y,int z){
+  matrix[x][y][z]= LOW;
 }
 
 #undef STR_PIN
