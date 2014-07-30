@@ -14,7 +14,6 @@
 namespace LEDCUBE {
   void begin();
   void clear();  //matrixをすべてLOW
-  void update(boolean mat[8][8][8]);
   void update(Cube mat);
   void update(int x,int y,int z,boolean value);
   void set(int x,int y,int z);
@@ -74,7 +73,7 @@ void LEDCUBE::clear(){
 }
 
 void LEDCUBE::update(Cube mat){
-  update(mat.matrix);
+
 }
 
 void LEDCUBE::update(int x,int y,int z,boolean value){

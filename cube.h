@@ -16,6 +16,9 @@ class Cube{
 		void set(int x,int y,int z,boolean value);
 		void clr(int x,int y,int z);
 		boolean get(int x,int y,int z);
+		void arrayImport(boolean mat[8][8][8]);
+		void arrayExport(boolean mat[8][8][8]);
+		void operator =(Cube c);
 };
 
 Cube::Cube(){
@@ -44,6 +47,28 @@ void Cube::clr(int x,int y,int z){
 
 boolean Cube::get(int x,int y,int z){
   return matrix[x][y][z];
+}
+
+void Cube::arrayImport(boolean mat[8][8][8]){
+	for(int x=0;x<8;x++){
+		for(int y=0;y<8;y++){
+			for(int z=0;z<8;z++) matrix[x][y][z] = mat[x][y][z];
+		}
+	}
+}
+
+void Cube::arrayExport(boolean mat[8][8][8]){
+	for(int x=0;x<8;x++){
+		for(int y=0;y<8;y++){
+			for(int z=0;z<8;z++) mat[x][y][z] = matrix[x][y][z];
+		}
+	}
+}
+
+
+
+void Cube::operator =(Cube c){
+	arrayExport(c.matrix);
 }
 
 #endif
