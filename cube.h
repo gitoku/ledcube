@@ -1,6 +1,12 @@
 #ifndef cube_h
 #define cube_h
 
+#if defined(ARDUINO) && ARDUINO >= 100
+  #include "Arduino.h"
+#else
+  #include "WProgram.h"
+#endif
+
 class Cube{
 	public:
 		boolean matrix[8][8][8];
@@ -8,6 +14,7 @@ class Cube{
 		void clearAll();
 		void set(int x,int y,int z);
 		void clr(int x,int y,int z);
+		boolean get(int x,int y,int z);
 };
 
 Cube::Cube(){
@@ -29,6 +36,10 @@ void Cube::set(int x,int y,int z){
 
 void Cube::clr(int x,int y,int z){
   matrix[x][y][z]= LOW;
+}
+
+boolean Cube::get(int x,int y,int z){
+  return matrix[x][y][z];
 }
 
 #endif
