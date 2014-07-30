@@ -6,6 +6,8 @@ class Cube{
 		boolean matrix[8][8][8];
 		Cube();
 		void clearAll();
+		void set(int x,int y,int z);
+		void clr(int x,int y,int z);
 };
 
 Cube::Cube(){
@@ -18,6 +20,15 @@ void Cube::clearAll(){
 			for(int z=0;z<8;z++) matrix[x][y][z] = 0;
 		}
 	}
+}
+
+
+void Cube::set(int x,int y,int z){
+  matrix[x][y][z]= HIGH;
+}
+
+void Cube::clr(int x,int y,int z){
+  matrix[x][y][z]= LOW;
 }
 
 #endif

@@ -17,8 +17,8 @@ namespace LEDCUBE {
   void update(boolean mat[8][8][8]);
   void update(Cube mat);
   void update(int x,int y,int z,boolean value);
-  void on(int x,int y,int z);
-  void off(int x,int y,int z);
+  void set(int x,int y,int z);
+  void clr(int x,int y,int z);
   void drawingStage();
 
   boolean buffer[72];
@@ -89,11 +89,11 @@ void LEDCUBE::update(int x,int y,int z,boolean value){
   matrix[x][y][z]= value;
 }
 
-void LEDCUBE::on(int x,int y,int z){
+void LEDCUBE::set(int x,int y,int z){
   matrix[x][y][z]= HIGH;
 }
 
-void LEDCUBE::off(int x,int y,int z){
+void LEDCUBE::clr(int x,int y,int z){
   matrix[x][y][z]= LOW;
 }
 
