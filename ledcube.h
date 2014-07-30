@@ -69,11 +69,8 @@ void LEDCUBE::drawingStage(){
 
 //matrixをすべてLOW
 void LEDCUBE::clear(){
-  for(int x=0;x<8;x++){
-    for(int y=0;y<8;y++){
-      for(int z=0;z<8;z++) matrix[x][y][z] = 0;
-    }
-  }
+  Cube c;
+  update(c);
 }
 
 void LEDCUBE::update(boolean mat[8][8][8]){
