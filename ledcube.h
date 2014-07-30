@@ -63,6 +63,8 @@ void LEDCUBE::drawingStage(){
 
   //次回の発光段の指定
   stage = (++stage) % 8;
+
+  Serial.println(stage);
 }
 
 

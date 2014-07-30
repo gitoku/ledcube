@@ -8,6 +8,8 @@ void loop(){
 	//どちらも同じ動作
 	// blink1();	//アドレス指定で個別にon/offする場合
 	blink2();	//まとめて更新する場合
+
+	Serial.begin(19200);
 }
 
 
