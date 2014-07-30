@@ -14,11 +14,14 @@
 namespace LEDCUBE {
   void begin();
   void clear();  //matrixをすべてLOW
+  void pull(Cube mat);
   void update(Cube mat);
   void update(int x,int y,int z,boolean value);
   void set(int x,int y,int z);
   void clr(int x,int y,int z);
   void drawingStage();
+  boolean get(int x,int y,int z);
+
 
   boolean buffer[72];
   Cube cube;
@@ -70,6 +73,10 @@ void LEDCUBE::clear(){
   update(cube);
 }
 
+void LEDCUBE::pull(Cube mat){
+  mat = cube;
+}
+
 void LEDCUBE::update(Cube mat){
   cube = mat;
 }
@@ -84,6 +91,10 @@ void LEDCUBE::set(int x,int y,int z){
 
 void LEDCUBE::clr(int x,int y,int z){
   cube.clr(x,y,z);
+}
+
+boolean LEDCUBE::get(int x,int y,int z){
+  return cube.get(x,y,z);
 }
 
 #undef STR_PIN
