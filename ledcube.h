@@ -75,7 +75,7 @@ void LEDCUBE::clear(){
 void LEDCUBE::update(Cube mat){
   noInterrupts();
   cube = mat;
-  intrerrupts();
+  interrupts();
 }
 
 void LEDCUBE::update(int x,int y,int z,boolean value){
