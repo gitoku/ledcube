@@ -144,6 +144,7 @@ a.set(1,2,3);	//(1,2,3)をHIGHに
 b = a;	//bにaをコピー
 c = b.get(1,2,3);	//(1,2,3)の内容HIGHを返す
 ```
+* 処理に時間がかかるので、あまり多用しない
 
 ### `LEDCUBE`へ反映
 * `LEDCUBE::update(Cube)`
@@ -151,3 +152,4 @@ c = b.get(1,2,3);	//(1,2,3)の内容HIGHを返す
 	* `HIGH`,`LOW`はそれぞれLEDのON,OFFとなる
 * `LEDCUBE::pull(Cube)`
 	* `LEDCUBE`の現在の状態を`Cube`に複製
+	* できるだけ使用しない(時間のかかる処理のため)
