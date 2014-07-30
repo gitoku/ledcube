@@ -7,6 +7,8 @@
   #include "WProgram.h"
 #endif
 
+#define LINE -1
+
 class Cube{
 	public:
 		boolean matrix[8][8][8];
@@ -19,6 +21,7 @@ class Cube{
 		void arrayImport(boolean mat[8][8][8]);
 		void arrayExport(boolean mat[8][8][8]);
 		Cube& operator=(Cube& c);
+		void line(int x,int y,int z,boolean data);
 };
 
 Cube::Cube(){
@@ -67,8 +70,14 @@ void Cube::arrayExport(boolean mat[8][8][8]){
 
 
 Cube& Cube::operator = (Cube& c){
-		arrayImport(c.matrix);
-	}
+	arrayImport(c.matrix);
+}
+
+void Cube::line(int x,int y,int z,boolean data){
+	if(x==LINE) for(int x=0;x<8;x++) matrix[x][y][z] = data;
+	else if(y==LINE) for(int y=0;y<8;y++) matrix[x][y][z] = data;
+	else  for(int z=0;z<8;z++) matrix[x][y][z] = data;
+}
 
 
 #endif

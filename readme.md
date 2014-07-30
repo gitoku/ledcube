@@ -4,15 +4,20 @@
 
 各方向それぞれ`0~7`の座標で表す
 
+* 原点
+	* 正面絡みて左上の手前
 * `x`方向
+	* 原点から右方向
 * `y`方向
+	* 原点から奥方向
 * `z`方向
+	* 原点から下方向
 
 ## サンプルスケッチ
 
 基本的に`ledcube.ino`のみ編集する.
 
-### 座標`(0,0,0)`のLEDを点滅させる
+### お題：「座標`(0,0,0)`のLEDを点滅させる」
 
 #### 個別に指定
 
@@ -66,7 +71,7 @@ void loop(){
 ## `Cube`オブジェクト
 
 ### 概要
-* `8*8*8`の2値(0 or 1)配列を持つ
+* `8*8*8`の2値(HIGH or LOW)配列を持つ
 * `Cube`オブジェクトを用いることで配列の計算が簡単にできる
 
 ### 宣言
@@ -84,8 +89,8 @@ Cube box;	//Cubeオブジェクトのインスタンスcを生成
 ```cpp
 Cube matrix;
 
-matrix.set(0,0,0);	//(0,0,0)を1に
-matrix.clr(7,7,7);	//(7,7,7)を0に
+matrix.set(0,0,0);	//(0,0,0)をHIGHに
+matrix.clr(7,7,7);	//(7,7,7)をLOWに
 ```
 
 * `clearAll()`
@@ -93,7 +98,7 @@ matrix.clr(7,7,7);	//(7,7,7)を0に
 ```cpp
 Cube empty;
 
-empty.clearAll();	//すべて0に
+empty.clearAll();	//すべてLOWに
 ```
 
 * `get(x,y,z)`
@@ -102,9 +107,13 @@ empty.clearAll();	//すべて0に
 Cube cube;
 boolean data;
 
-cube.set(3,5,1);	//(3,5,1)を1に
-data = cube.get(3,5,1);	//(3,5,1)の内容1を返す
+cube.set(3,5,1);	//(3,5,1)をHIGHに
+data = cube.get(3,5,1);	//(3,5,1)の内容HIGHを返す
 ```
+
+* `line(x,y,z,value)`
+	* 例えば`line(LINE,3,4,HIGH)`ならば`z=4`,`y=4`の直線上を`HIGH`で上書きする
+	* `line(7,LINE,1,LOW)`ならば`x=7`,`z=1`の直線上を`LOW`で上書きする
 
 ### コピー
 
@@ -114,12 +123,14 @@ Cube a;
 Cube b;
 boolean c;
 
-a.set(1,2,3);	//(1,2,3)を1に
+a.set(1,2,3);	//(1,2,3)をHIGHに
 b = a;	//bにaをコピー
-c = b.get(1,2,3);	//(1,2,3)の内容1を返す
+c = b.get(1,2,3);	//(1,2,3)の内容HIGHを返す
 ```
 
 ### `LEDCUBE`へ反映
 * `LEDCUBE::update(Cube)`
-	* Cubeの内容をLEDCUBEに反映
-	* `0,1`はそれぞれLEDのON,OFFとなる
+	* `Cube`の内容を`LEDCUBE`に反映
+	* `HIGH`,`LOW`はそれぞれLEDのON,OFFとなる
+* `LEDCUBE::pull(Cube)`
+	* `LEDCUBE`の現在の状態を`Cube`に複製
