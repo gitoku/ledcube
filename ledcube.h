@@ -68,12 +68,12 @@ void LEDCUBE::drawingStage(){
 
 //matrixをすべてLOW
 void LEDCUBE::clear(){
-  Cube c;
-  update(c);
+  cube.clearAll();
+  update(cube);
 }
 
 void LEDCUBE::update(Cube mat){
-
+  cube = mat;
 }
 
 void LEDCUBE::update(int x,int y,int z,boolean value){
