@@ -13,6 +13,7 @@ class Cube{
 		Cube();
 		void clearAll();
 		void set(int x,int y,int z);
+		void set(int x,int y,int z,boolean value);
 		void clr(int x,int y,int z);
 		boolean get(int x,int y,int z);
 };
@@ -29,6 +30,9 @@ void Cube::clearAll(){
 	}
 }
 
+void Cube::set(int x,int y,int z,boolean value){
+  matrix[x][y][z]= value;
+}
 
 void Cube::set(int x,int y,int z){
   matrix[x][y][z]= HIGH;

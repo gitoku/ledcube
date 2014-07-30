@@ -22,7 +22,7 @@ namespace LEDCUBE {
   void drawingStage();
 
   boolean buffer[72];
-  boolean matrix[8][8][8];
+  Cube cube;
   fastShiftOut ledcube;
 };
 
@@ -55,7 +55,7 @@ void LEDCUBE::drawingStage(){
   //選択した段の発光箇所データ反映[0~63]
   for(byte i=0; i<8; i++){
     for(byte j=0; j<8; j++){
-       buffer[(i*8) + j] = matrix[i][j][stage];
+       buffer[(i*8) + j] = cube.get(i,j,stage);
     }
   }
 
@@ -73,28 +73,20 @@ void LEDCUBE::clear(){
   update(c);
 }
 
-void LEDCUBE::update(boolean mat[8][8][8]){
-  for(int x=0;x<8;x++){
-    for(int y=0;y<8;y++){
-      for(int z=0;z<8;z++) matrix[x][y][z] = mat[x][y][z];
-    }
-  }
-}
-
 void LEDCUBE::update(Cube mat){
   update(mat.matrix);
 }
 
 void LEDCUBE::update(int x,int y,int z,boolean value){
-  matrix[x][y][z]= value;
+  cube.set(x,y,z,value);
 }
 
 void LEDCUBE::set(int x,int y,int z){
-  matrix[x][y][z]= HIGH;
+  cube.set(x,y,z);
 }
 
 void LEDCUBE::clr(int x,int y,int z){
-  matrix[x][y][z]= LOW;
+  cube.clr(x,y,z);
 }
 
 #undef STR_PIN
