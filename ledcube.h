@@ -37,7 +37,6 @@ void LEDCUBE::begin(){
     drawingStage();
     delay(1);
   }
-  Serial.begin(9600);
 
   MsTimer2::set(1,drawingStage);
   MsTimer2::start();
@@ -57,14 +56,11 @@ void LEDCUBE::drawingStage(){
        buffer[(i*8) + j] = cube.get(i,j,stage);
     }
   }
-
   //データ送信
   ledcube.send();
 
   //次回の発光段の指定
   stage = (++stage) % 8;
-
-  Serial.println(stage);
 }
 
 
@@ -75,9 +71,7 @@ void LEDCUBE::clear(){
 }
 
 void LEDCUBE::update(Cube mat){
-  noInterrupts();
   cube = mat;
-  interrupts();
 }
 
 void LEDCUBE::update(int x,int y,int z,boolean value){

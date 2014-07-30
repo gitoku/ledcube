@@ -18,7 +18,7 @@ class Cube{
 		boolean get(int x,int y,int z);
 		void arrayImport(boolean mat[8][8][8]);
 		void arrayExport(boolean mat[8][8][8]);
-		void operator =(Cube c);
+		Cube& operator=(Cube& c);
 };
 
 Cube::Cube(){
@@ -66,9 +66,9 @@ void Cube::arrayExport(boolean mat[8][8][8]){
 }
 
 
+Cube& Cube::operator = (Cube& c){
+		arrayImport(c.matrix);
+	}
 
-void Cube::operator =(Cube c){
-	arrayExport(c.matrix);
-}
 
 #endif
