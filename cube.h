@@ -7,7 +7,7 @@
   #include "WProgram.h"
 #endif
 
-#define LINE -1
+#define LINE (-1)
 
 class Cube{
 	public:
